@@ -1,0 +1,9 @@
+__pycache__/
+.vscode/
+.idea/
+*.log
+.venv/
+.env
+node_modules/
+goscenic/goscenic-backend/.env
+goscenic-backend/.env
