@@ -4,6 +4,7 @@
 - Removed the obsolete `GoScenic.git/` mirror directory from version control.
 - Added the directory to `.gitignore` so it does not return in future commits.
 - Deleted an outdated Terraform state file (`terraform/errored.tfstate`) to keep the repository clean.
+- Removed `terraform/.terraform.lock.hcl` from version control because this lock file is generated automatically.
 
 ## Technology Used
 - **Python & FastAPI**: Backend API located in `goscenic-backend/`.
