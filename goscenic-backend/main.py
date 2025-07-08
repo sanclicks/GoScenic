@@ -8,21 +8,15 @@ from reportlab.pdfgen import canvas
 import json
 import openai
 
-load_dotenv()  # Load environment variables
-
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
-OPENWEATHER_API_KEY = os.getenv("OPENWEATHER_API_KEY")
-GAS_API_KEY = os.getenv("GAS_API_KEY")
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-
-load_dotenv()  # Load environment variables
-
-app = FastAPI()
+load_dotenv()
 
 # Load API keys
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 OPENWEATHER_API_KEY = os.getenv("OPENWEATHER_API_KEY")
 GAS_API_KEY = os.getenv("GAS_API_KEY")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
+app = FastAPI()
 
 @app.get("/")
 def read_root():
@@ -269,8 +263,6 @@ def get_scenic_route(origin: str, destination: str):
 
 
 
-# Load OpenAI API key
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 client = openai.OpenAI(api_key=OPENAI_API_KEY)
 
 @app.get("/chatbot")
