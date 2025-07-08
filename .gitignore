@@ -15,3 +15,5 @@ venv/
 .terraform.lock.hcl
 goscenic-backend/itinerary.json
 goscenic-backend/itinerary.json
+# Next.js build output
+web/.next/
