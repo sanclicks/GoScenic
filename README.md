@@ -122,4 +122,14 @@ Scalability: Built on AWS, ensuring high availability and performance even with 
 
 Conclusion
 
-GoScenic is an all-in-one road trip planning solution, integrating AI-driven route optimization, cost estimation, and travel assistance. With an intuitive interface and a robust backend, GoScenic is poised to redefine the way users plan and experience road trips. The application offers a unique blend of personalization, real-time insights, and offline accessibility, making it a must-have tool for adventure seekers and travel enthusiasts.# GoScenic
+GoScenic is an all-in-one road trip planning solution, integrating AI-driven route optimization, cost estimation, and travel assistance. With an intuitive interface and a robust backend, GoScenic is poised to redefine the way users plan and experience road trips. The application offers a unique blend of personalization, real-time insights, and offline accessibility, making it a must-have tool for adventure seekers and travel enthusiasts.
+
+Development Setup
+-----------------
+
+The repository now includes example front-end projects for mobile and web clients inspired by the Roadtrippers experience.
+
+- **`mobile/`** – React Native project using Expo for iOS and Android.
+- **`web/`** – Next.js project for desktop browsers.
+
+To start either project, navigate into the directory and run `npm install` followed by `npm start` (or `npm run dev` for the web app).
