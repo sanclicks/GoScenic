@@ -1,6 +1,7 @@
 fastapi
 uvicorn
-requests
+httpx
+fastapi-cache2
 python-dotenv
 
 openai
