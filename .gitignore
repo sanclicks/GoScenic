@@ -14,3 +14,4 @@ venv/
 *.tfstate.backup
 .terraform.lock.hcl
 goscenic-backend/itinerary.json
+goscenic-backend/itinerary.json
