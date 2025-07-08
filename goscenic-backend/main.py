@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Query
+from fastapi import FastAPI
 import requests
 import os
 from dotenv import load_dotenv
@@ -15,14 +15,7 @@ OPENWEATHER_API_KEY = os.getenv("OPENWEATHER_API_KEY")
 GAS_API_KEY = os.getenv("GAS_API_KEY")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
-load_dotenv()  # Load environment variables
-
 app = FastAPI()
-
-# Load API keys
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
-OPENWEATHER_API_KEY = os.getenv("OPENWEATHER_API_KEY")
-GAS_API_KEY = os.getenv("GAS_API_KEY")
 
 @app.get("/")
 def read_root():
@@ -269,8 +262,7 @@ def get_scenic_route(origin: str, destination: str):
 
 
 
-# Load OpenAI API key
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+# Initialize OpenAI client
 client = openai.OpenAI(api_key=OPENAI_API_KEY)
 
 @app.get("/chatbot")
