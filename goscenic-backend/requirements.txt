@@ -3,6 +3,5 @@ uvicorn
 httpx
 fastapi-cache2
 python-dotenv
-
 openai
 reportlab
