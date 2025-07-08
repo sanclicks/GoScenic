@@ -14,20 +14,21 @@ from fastapi_cache.decorator import cache
 
 load_dotenv()
 
-
-@app.on_event("startup")
-async def startup_event() -> None:
-    """Initialize caching backend."""
-    FastAPICache.init(InMemoryBackend(), prefix="goscenic-cache")
-
-
 # Load API keys
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 OPENWEATHER_API_KEY = os.getenv("OPENWEATHER_API_KEY")
 GAS_API_KEY = os.getenv("GAS_API_KEY")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
+client = openai.OpenAI(api_key=OPENAI_API_KEY)
+
 app = FastAPI()
+
+
+@app.on_event("startup")
+async def startup_event() -> None:
+    """Initialize caching backend."""
+    FastAPICache.init(InMemoryBackend(), prefix="goscenic-cache")
 
 
 @app.get("/")
@@ -365,9 +366,6 @@ async def get_scenic_route(origin: str, destination: str):
         "recommended_scenic_route": scenic_routes[0],
         "all_routes": scenic_routes,
     }
-
-
-client = openai.OpenAI(api_key=OPENAI_API_KEY)
 
 
 @app.get("/chatbot")
