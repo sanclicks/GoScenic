@@ -142,3 +142,9 @@ Terraform CLI either via your package manager (e.g., `apt-get install terraform`
 or by downloading the appropriate release from HashiCorp. After installation,
 change into `terraform/` and run `terraform init` to initialize the working
 directory.
+
+License
+-------
+
+This project is released under the [MIT License](LICENSE).
+
