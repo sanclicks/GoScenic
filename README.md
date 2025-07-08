@@ -133,3 +133,12 @@ The repository now includes example front-end projects for mobile and web client
 - **`web/`** – Next.js project for desktop browsers.
 
 To start either project, navigate into the directory and run `npm install` followed by `npm start` (or `npm run dev` for the web app).
+
+Terraform CLI
+-------------
+
+The infrastructure code resides in the `terraform/` directory. Install the
+Terraform CLI either via your package manager (e.g., `apt-get install terraform`)
+or by downloading the appropriate release from HashiCorp. After installation,
+change into `terraform/` and run `terraform init` to initialize the working
+directory.
