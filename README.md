@@ -134,6 +134,13 @@ The repository now includes example front-end projects for mobile and web client
 
 To start either project, navigate into the directory and run `npm install` followed by `npm start` (or `npm run dev` for the web app).
 
+For the API backend located in **`goscenic-backend/`**, install the Python dependencies and start the server with:
+
+```bash
+python3 -m pip install -r requirements.txt
+uvicorn main:app --reload
+```
+
 Terraform CLI
 -------------
 
