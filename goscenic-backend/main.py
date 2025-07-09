@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 import httpx
-import requests
 import os
 from dotenv import load_dotenv
 from fastapi.responses import FileResponse, JSONResponse
@@ -70,7 +69,7 @@ def get_config():
 
 
 @app.get("/trip-cost")
-def calculate_trip_cost(origin: str, destination: str, mileage: float = 25.0):
+async def calculate_trip_cost(origin: str, destination: str, mileage: float = 25.0):
     """Calculate trip cost based on distance, fuel price, lodging, and food."""
 
     # 1. Get Trip Distance from Google Maps API
@@ -78,7 +77,8 @@ def calculate_trip_cost(origin: str, destination: str, mileage: float = 25.0):
         "https://maps.googleapis.com/maps/api/distancematrix/json"
         f"?origins={origin}&destinations={destination}&key={GOOGLE_API_KEY}"
     )
-    distance_response = requests.get(distance_url).json()
+    async with httpx.AsyncClient() as client:
+        distance_response = (await client.get(distance_url)).json()
 
     try:
         distance_meters = distance_response["rows"][0]["elements"][0][
@@ -99,7 +99,8 @@ def calculate_trip_cost(origin: str, destination: str, mileage: float = 25.0):
         gas_price_url = (
             f"https://api.gasbuddy.com/api/v1/gas-prices?api_key={GAS_API_KEY}"
         )
-        gas_response = requests.get(gas_price_url).json()
+        async with httpx.AsyncClient() as client:
+            gas_response = (await client.get(gas_price_url)).json()
         gas_price = gas_response.get(
             "average_gas_price", 4.00
         )  # Default to $4.00 if no response
@@ -130,14 +131,15 @@ def calculate_trip_cost(origin: str, destination: str, mileage: float = 25.0):
 
 
 @app.get("/lodging")
-def get_lodging(location: str, radius: int = 5000):
+async def get_lodging(location: str, radius: int = 5000):
     """Get hotels near a location using Google Places API."""
     url = (
         "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
         f"?location={location}&radius={radius}"
         f"&type=lodging&key={GOOGLE_API_KEY}"
     )
-    response = requests.get(url).json()
+    async with httpx.AsyncClient() as client:
+        response = (await client.get(url)).json()
 
     hotels = []
     for place in response.get("results", []):
@@ -154,14 +156,15 @@ def get_lodging(location: str, radius: int = 5000):
 
 
 @app.get("/restaurants")
-def get_restaurants(location: str, radius: int = 5000):
+async def get_restaurants(location: str, radius: int = 5000):
     """Get restaurants near a location using Google Places API."""
     url = (
         "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
         f"?location={location}&radius={radius}"
         f"&type=restaurant&key={GOOGLE_API_KEY}"
     )
-    response = requests.get(url).json()
+    async with httpx.AsyncClient() as client:
+        response = (await client.get(url)).json()
 
     restaurants = []
     for place in response.get("results", []):
@@ -178,17 +181,17 @@ def get_restaurants(location: str, radius: int = 5000):
 
 
 @app.get("/download-itinerary")
-def download_itinerary(
+async def download_itinerary(
     origin: str, destination: str, mileage: float = 25.0, format: str = "json"
 ):
     """Generate and download trip itinerary as JSON or PDF"""
 
     # Fetch trip cost details
-    trip_cost = calculate_trip_cost(origin, destination, mileage)
+    trip_cost = await calculate_trip_cost(origin, destination, mileage)
 
     # Fetch lodging & food suggestions
-    lodging_data = get_lodging(origin)
-    restaurant_data = get_restaurants(origin)
+    lodging_data = await get_lodging(origin)
+    restaurant_data = await get_restaurants(origin)
 
     itinerary = {
         "trip_details": trip_cost,
