@@ -1,0 +1,13 @@
+# Ignore large directories and unwanted files
+**
+
+# Allow backend app files
+!main.py
+!requirements.txt
+!Dockerfile
+
+# Additional directories to ignore if context is repository root
+.git/
+mobile/
+web/
+terraform/
