@@ -166,6 +166,17 @@ or by downloading the appropriate release from HashiCorp. After installation,
 change into `terraform/` and run `terraform init` to initialize the working
 directory.
 
+Running Tests
+-------------
+
+Unit tests for the backend are located in `goscenic-backend/tests`. After
+installing the required dependencies, execute the tests with:
+
+```bash
+cd goscenic-backend
+pytest
+```
+
 License
 -------
 
