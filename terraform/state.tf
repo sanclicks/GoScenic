@@ -42,3 +42,14 @@ resource "aws_dynamodb_table" "terraform_locks" {
     Name = "terraform-lock"
   }
 }
+# Configure the backend for storing Terraform state
+terraform {
+  backend "s3" {
+    bucket         = "goscenic-terraform-state"
+    key            = "infra/terraform.tfstate"
+    region         = "us-east-1"
+    dynamodb_table = "goscenic-tf-lock"
+    encrypt        = true
+  }
+}
+
