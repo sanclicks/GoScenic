@@ -5,3 +5,4 @@ fastapi-cache2
 python-dotenv
 openai
 reportlab
+requests
