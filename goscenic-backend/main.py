@@ -10,6 +10,8 @@ import openai
 from fastapi_cache import FastAPICache
 from fastapi_cache.backends.inmemory import InMemoryBackend
 from fastapi_cache.decorator import cache
+from routes import itinerary
+from routes import user, photo
 
 load_dotenv()
 
@@ -23,6 +25,10 @@ client = openai.OpenAI(api_key=OPENAI_API_KEY)
 
 app = FastAPI()
 
+# Register additional routers
+app.include_router(itinerary.router, prefix="/api")
+app.include_router(user.router, prefix="/api")
+app.include_router(photo.router, prefix="/api")
 
 @app.on_event("startup")
 async def startup_event() -> None:

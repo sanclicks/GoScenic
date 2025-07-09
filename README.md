@@ -153,10 +153,27 @@ GOOGLE_API_KEY=your_google_key
 OPENWEATHER_API_KEY=your_openweather_key
 GAS_API_KEY=your_gas_api_key
 OPENAI_API_KEY=your_openai_api_key
+AWS_ACCESS_KEY_ID=your_aws_key
+AWS_SECRET_ACCESS_KEY=your_aws_secret
+AWS_S3_BUCKET=your_bucket_name
 ```
 
 These keys are loaded automatically when running the server, and the included
 `Dockerfile` expects them to be available at build time.
+
+API Endpoints
+-------------
+The FastAPI server exposes several helper endpoints:
+
+- `/` – returns a welcome message.
+- `/distance` – distance data from Google Maps.
+- `/directions` – route directions.
+- `/trip-cost` – estimate travel costs.
+- `/api/itinerary` – generate a basic itinerary.
+- `/api/profile` – create or fetch a user profile.
+- `/api/upload-photo` – upload a photo to S3.
+- `/config` – show which API keys are configured.
+
 
 Terraform CLI
 -------------

@@ -6,3 +6,6 @@ python-dotenv
 openai
 reportlab
 requests
+boto3
+email-validator
+python-multipart
