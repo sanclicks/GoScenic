@@ -74,7 +74,10 @@ def calculate_trip_cost(origin: str, destination: str, mileage: float = 25.0):
     """Calculate trip cost based on distance, fuel price, lodging, and food."""
 
     # 1. Get Trip Distance from Google Maps API
-    distance_url = f"https://maps.googleapis.com/maps/api/distancematrix/json?origins={origin}&destinations={destination}&key={GOOGLE_API_KEY}"
+    distance_url = (
+        "https://maps.googleapis.com/maps/api/distancematrix/json"
+        f"?origins={origin}&destinations={destination}&key={GOOGLE_API_KEY}"
+    )
     distance_response = requests.get(distance_url).json()
 
     try:
@@ -84,7 +87,10 @@ def calculate_trip_cost(origin: str, destination: str, mileage: float = 25.0):
         distance_miles = distance_meters / 1609.34  # Convert meters to miles
     except KeyError:
         return {
-            "error": "Unable to calculate distance. Check the origin and destination."
+            "error": (
+                "Unable to calculate distance. "
+                "Check the origin and destination."
+            )
         }
 
     # 2. Get Gas Price (Using Default Value or Gas API)
@@ -126,7 +132,11 @@ def calculate_trip_cost(origin: str, destination: str, mileage: float = 25.0):
 @app.get("/lodging")
 def get_lodging(location: str, radius: int = 5000):
     """Get hotels near a location using Google Places API."""
-    url = f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={location}&radius={radius}&type=lodging&key={GOOGLE_API_KEY}"
+    url = (
+        "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
+        f"?location={location}&radius={radius}"
+        f"&type=lodging&key={GOOGLE_API_KEY}"
+    )
     response = requests.get(url).json()
 
     hotels = []
@@ -146,7 +156,11 @@ def get_lodging(location: str, radius: int = 5000):
 @app.get("/restaurants")
 def get_restaurants(location: str, radius: int = 5000):
     """Get restaurants near a location using Google Places API."""
-    url = f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={location}&radius={radius}&type=restaurant&key={GOOGLE_API_KEY}"
+    url = (
+        "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
+        f"?location={location}&radius={radius}"
+        f"&type=restaurant&key={GOOGLE_API_KEY}"
+    )
     response = requests.get(url).json()
 
     restaurants = []
@@ -296,7 +310,8 @@ async def get_scenic_route(origin: str, destination: str):
     # Step 1: Get multiple routes from Google Directions API
     directions_url = (
         "https://maps.googleapis.com/maps/api/directions/json"
-        f"?origin={origin}&destination={destination}&alternatives=true&key={GOOGLE_API_KEY}"
+        f"?origin={origin}&destination={destination}"
+        f"&alternatives=true&key={GOOGLE_API_KEY}"
     )
     async with httpx.AsyncClient() as client:
         directions_response = (await client.get(directions_url)).json()
@@ -317,15 +332,20 @@ async def get_scenic_route(origin: str, destination: str):
                 lng = step["end_location"]["lng"]
                 waypoints.append(f"{lat},{lng}")
 
-            # Step 3: Find scenic landmarks along the route using Google Places API
+            # Step 3: Find scenic landmarks along the route
+            # using Google Places API
             scenic_places = []
             scenic_score = 0
             for waypoint in waypoints[
                 :5
             ]:  # Limit to 5 waypoints for optimization
                 places_url = (
-                    "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
-                    f"?location={waypoint}&radius=10000&type=park|tourist_attraction|scenic_viewpoint|natural_feature&key={GOOGLE_API_KEY}"
+                    "https://maps.googleapis.com/maps/api/place/"
+                    "nearbysearch/json"
+                    f"?location={waypoint}&radius=10000"
+                    f"&type=park|tourist_attraction|"
+                    f"scenic_viewpoint|natural_feature"
+                    f"&key={GOOGLE_API_KEY}"
                 )
                 places_response = (await client.get(places_url)).json()
 
@@ -353,7 +373,8 @@ async def get_scenic_route(origin: str, destination: str):
                     route["legs"][0]["duration"]["value"] / 60, 2
                 ),
                 "scenic_score": scenic_score,  # Higher score = more scenic
-                "scenic_places": scenic_places,  # List of scenic places along the route
+                # List of scenic places along the route
+                "scenic_places": scenic_places,
             }
         )
 
