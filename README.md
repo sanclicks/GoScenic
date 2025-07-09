@@ -158,6 +158,18 @@ OPENAI_API_KEY=your_openai_api_key
 These keys are loaded automatically when running the server, and the included
 `Dockerfile` expects them to be available at build time.
 
+API Endpoints
+-------------
+The FastAPI server exposes several helper endpoints:
+
+- `/` – returns a welcome message.
+- `/distance` – distance data from Google Maps.
+- `/directions` – route directions.
+- `/trip-cost` – estimate travel costs.
+- `/api/itinerary` – generate a basic itinerary.
+- `/config` – show which API keys are configured.
+
+
 Terraform CLI
 -------------
 
