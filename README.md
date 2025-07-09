@@ -141,6 +141,22 @@ python3 -m pip install -r requirements.txt
 uvicorn main:app --reload
 ```
 
+Environment Setup
+-----------------
+
+Create a `.env` file inside **`goscenic-backend/`** and add the following
+variables so the backend can authenticate with external services:
+
+```
+GOOGLE_API_KEY=your_google_key
+OPENWEATHER_API_KEY=your_openweather_key
+GAS_API_KEY=your_gas_api_key
+OPENAI_API_KEY=your_openai_api_key
+```
+
+These keys are loaded automatically when running the server, and the included
+`Dockerfile` expects them to be available at build time.
+
 Terraform CLI
 -------------
 
