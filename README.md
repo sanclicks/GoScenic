@@ -128,13 +128,14 @@ Development Setup
 -----------------
 
 The repository now includes example front-end projects for mobile and web clients inspired by the Roadtrippers experience.
+Make sure you have **Node.js 18** installed for these examples.
 
 - **`mobile/`** – React Native project using Expo for iOS and Android.
 - **`web/`** – Next.js project for desktop browsers.
 
 To start either project, navigate into the directory and run `npm install` followed by `npm start` (or `npm run dev` for the web app).
 
-For the API backend located in **`goscenic-backend/`**, install the Python dependencies and start the server with:
+For the API backend located in **`goscenic-backend/`**, use **Python 3.9**. Install the dependencies and start the server with:
 
 ```bash
 python3 -m pip install -r requirements.txt
